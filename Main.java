@@ -84,12 +84,7 @@ public class Main{
         String name = sc.nextLine();
         String[][] newArr = new String[arr.length - 1][arr[0].length];
         int index = -1;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i][0].equals(name)) {
-                index = i;
-                break;
-            }
-        }
+        index = binarySearch(arr, name);
         if (index == -1) {
             System.out.println("Country not found.");
             return arr;
@@ -106,6 +101,124 @@ public class Main{
         }
         sc.close();
         return newArr;
+    }
+
+    public static void printSpecificData(String[][] arr) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the name of the country to print: ");
+        String name = sc.nextLine();
+        System.out.println("What feature do you want to print: " +
+                "\n0. Name" +
+                "\n1. GDP " +
+                "\n2. Population " +
+                "\n3. Gender ratio" +
+                "\n4. Under 18" +
+                "\n5. Over 18" +
+                "\n6. Incarcerated" +
+                "\n7. Firepower" +
+                "\n8. Corporation Tax");
+        int choice = sc.nextInt();
+        int index = -1;
+        index = binarySearch(arr, name);
+        if (index == -1) {
+            System.out.println("Country not found.");
+            return;
+        }
+        System.out.println(arr[index][choice]);
+
+    }
+    public static String[][] editCountry(String[][] arr) {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Enter the name of the country to edit: ");
+    String countryName = sc.nextLine();
+
+    int rowIndex = -1;
+    rowIndex = binarySearch(arr, countryName);
+
+    if (rowIndex == -1) {
+        System.out.println("Country not found.");
+        return arr;
+    }
+
+    System.out.println("What feature do you want to edit: ");
+    System.out.println("Enter option: " +
+            "\n0. Name" +
+            "\n1. GDP " +
+            "\n2. Population " +
+            "\n3. Gender ratio" +
+            "\n4. Under 18" +
+            "\n5. Over 18" +
+            "\n6. Incarcerated" +
+            "\n7. Firepower" +
+            "\n8. Corporation Tax");
+
+    int feature = sc.nextInt();
+    sc.nextLine(); // Clear the buffer
+
+    switch (feature) {
+        case 0:
+            System.out.println("Enter new country name: ");
+            arr[rowIndex][0] = sc.nextLine();
+            break;
+        case 1:
+            System.out.println("Enter new GDP of the country: ");
+            arr[rowIndex][1] = sc.nextLine();
+            break;
+        case 2:
+            System.out.println("Enter new population of the country: ");
+            arr[rowIndex][2] = sc.nextLine();
+            break;
+        case 3:
+            System.out.println("Enter new gender ratio: ");
+            arr[rowIndex][3] = sc.nextLine();
+            break;
+        case 4:
+            System.out.println("Enter new Under 18 %: ");
+            arr[rowIndex][4] = sc.nextLine();
+            break;
+        case 5:
+            System.out.println("Enter new Over 18 %: ");
+            arr[rowIndex][5] = sc.nextLine();
+            break;
+        case 6:
+            System.out.println("Enter new Incarcerated %: ");
+            arr[rowIndex][6] = sc.nextLine();
+            break;
+        case 7:
+            System.out.println("Enter new Firepower: ");
+            arr[rowIndex][7] = sc.nextLine();
+            break;
+        case 8:
+            System.out.println("Enter new Corp Tax: ");
+            arr[rowIndex][8] = sc.nextLine();
+            break;
+        default:
+            System.out.println("Invalid option.");
+    }
+    System.out.println("Update complete.");
+    return arr;
+}
+
+    public void displayCountryStats(String[][] arr) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the name of the country to display: ");
+        String name = sc.nextLine();
+        int index = -1;
+        index = binarySearch(arr, name);
+        if (index == -1) {
+            System.out.println("Country not found.");
+            return;
+        }
+        System.out.println("Name: " + arr[index][0]);
+        System.out.println("GDP: " + arr[index][1]);
+        System.out.println("Population: " + arr[index][2]);
+        System.out.println("Gender Ratio: " + arr[index][3]);
+        System.out.println("Percentage of population under 18: " + arr[index][4]);
+        System.out.println("Percentage of population over 18: " + arr[index][5]);
+        System.out.println("Percentage of population that is incarcerated: " + arr[index][6]);
+        System.out.println("Firepower: " + arr[index][7]);
+        System.out.println("Corporate Tax Rate: " + arr[index][8]);
+        sc.close();
     }
     public static void main(String[] args) {
         String[][] data = pullCSV();
@@ -167,5 +280,24 @@ public class Main{
             }
         }
         sc.close();
+    }
+
+    public static int binarySearch(String[][] arr, String target) {
+        int left = 0;
+        int right = arr.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (arr[mid][0].equalsIgnoreCase(target)) {
+                return mid; // Target found
+            } else if (arr[mid][0].compareToIgnoreCase(target) < 0) {
+                left = mid + 1; // Search in the right half
+            } else {
+                right = mid - 1; // Search in the left half
+            }
+        }
+
+        return -1; // Target not found
     }
 }
