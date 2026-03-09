@@ -107,6 +107,33 @@ public class Main{
         sc.close();
         return newArr;
     }
+
+    public void displayCountryStats(String[][] arr) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the name of the country to display: ");
+        String name = sc.nextLine();
+        int index = -1;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i][0].equals(name)) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            System.out.println("Country not found.");
+            return;
+        }
+        System.out.println("Name: " + arr[index][0]);
+        System.out.println("GDP: " + arr[index][1]);
+        System.out.println("Population: " + arr[index][2]);
+        System.out.println("Gender Ratio: " + arr[index][3]);
+        System.out.println("Percentage of population under 18: " + arr[index][4]);
+        System.out.println("Percentage of population over 18: " + arr[index][5]);
+        System.out.println("Percentage of population that is incarcerated: " + arr[index][6]);
+        System.out.println("Firepower: " + arr[index][7]);
+        System.out.println("Corporate Tax Rate: " + arr[index][8]);
+        sc.close();
+    }
     public static void main(String[] args) {
         String[][] data = pullCSV();
 
