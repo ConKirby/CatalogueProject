@@ -1,7 +1,6 @@
-import java.io. * ;
-import java.util.Scanner;
-import java.io.FileNotFoundException;
+import java.io.* ;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main{
     private static String[][] pullCSV() {
@@ -40,7 +39,74 @@ public class Main{
             return null;
         }
     }
-
+    public static String[][] addCountry(String[][] arr) {
+        String name, GDP, population, genderRatio, u18, o18, incarcerated, firepower, corpTax;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the name of the country: ");
+        name = sc.nextLine();
+        System.out.println("Enter the GDP of the country: ");
+        GDP = sc.nextLine();
+        System.out.println("Enter the population of the country: ");
+        population = sc.nextLine();
+        System.out.println("Enter the gender ratio of the country: ");      
+        genderRatio = sc.nextLine();
+        System.out.println("Enter the percentage of the population under 18: ");
+        u18 = sc.nextLine();
+        System.out.println("Enter the percentage of the population over 18: ");
+        o18 = sc.nextLine();
+        System.out.println("Enter the percentage of the population that is incarcerated: ");
+        incarcerated = sc.nextLine();
+        System.out.println("Enter the firepower of the country: ");
+        firepower = sc.nextLine();
+        System.out.println("Enter the corporate tax rate of the country: ");
+        corpTax = sc.nextLine();
+        String[][] newArr = new String[arr.length + 1][arr[0].length];
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                newArr[i][j] = arr[i][j];
+            }
+        }
+        newArr[arr.length][0] = name;
+        newArr[arr.length][1] = GDP;
+        newArr[arr.length][2] = population;
+        newArr[arr.length][3] = genderRatio;
+        newArr[arr.length][4] = u18;
+        newArr[arr.length][5] = o18;
+        newArr[arr.length][6] = incarcerated;
+        newArr[arr.length][7] = firepower;
+        newArr[arr.length][8] = corpTax;
+        sc.close();
+        return newArr;      
+    }
+    public String[][] removeCountry(String[][] arr) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the name of the country to remove: ");
+        String name = sc.nextLine();
+        String[][] newArr = new String[arr.length - 1][arr[0].length];
+        int index = -1;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i][0].equals(name)) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            System.out.println("Country not found.");
+            return arr;
+        }
+        for (int i = 0; i < index; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                newArr[i][j] = arr[i][j];
+            }
+        }
+        for (int i = index + 1; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                newArr[i - 1][j] = arr[i][j];
+            }
+        }
+        sc.close();
+        return newArr;
+    }
     public static void main(String[] args) {
         String[][] data = pullCSV();
 
