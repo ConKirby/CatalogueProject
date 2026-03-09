@@ -1,2 +1,8 @@
 Put csv data into 2D array
 sort using quicksort 
+
+Features:
+add Country
+remove Country
+update data within Country
+train an ml model to fill in data for the missing values based on other values
