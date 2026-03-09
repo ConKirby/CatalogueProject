@@ -65,7 +65,7 @@ public class Main{
             for (int j = 0; j < arr[i].length; j++) {
                 newArr[i][j] = arr[i][j];
             }
-        }
+        } 
         newArr[arr.length][0] = name;
         newArr[arr.length][1] = GDP;
         newArr[arr.length][2] = population;
