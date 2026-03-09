@@ -107,6 +107,82 @@ public class Main{
         sc.close();
         return newArr;
     }
+    public static String[][] editCountry(String[][] arr) {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Enter the name of the country to edit: ");
+    String countryName = sc.nextLine();
+
+    int rowIndex = -1;
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i][0].equalsIgnoreCase(countryName)) {
+            rowIndex = i;
+            break;
+        }
+    }
+
+    if (rowIndex == -1) {
+        System.out.println("Country not found.");
+        return arr;
+    }
+
+    System.out.println("What feature do you want to edit: ");
+    System.out.println("Enter option: " +
+            "\n0. Name" +
+            "\n1. GDP " +
+            "\n2. Population " +
+            "\n3. Gender ratio" +
+            "\n4. Under 18" +
+            "\n5. Over 18" +
+            "\n6. Incarcerated" +
+            "\n7. Firepower" +
+            "\n8. Corporation Tax");
+
+    int feature = sc.nextInt();
+    sc.nextLine(); // Clear the buffer
+
+    switch (feature) {
+        case 0:
+            System.out.println("Enter new country name: ");
+            arr[rowIndex][0] = sc.nextLine();
+            break;
+        case 1:
+            System.out.println("Enter new GDP of the country: ");
+            arr[rowIndex][1] = sc.nextLine();
+            break;
+        case 2:
+            System.out.println("Enter new population of the country: ");
+            arr[rowIndex][2] = sc.nextLine();
+            break;
+        case 3:
+            System.out.println("Enter new gender ratio: ");
+            arr[rowIndex][3] = sc.nextLine();
+            break;
+        case 4:
+            System.out.println("Enter new Under 18 %: ");
+            arr[rowIndex][4] = sc.nextLine();
+            break;
+        case 5:
+            System.out.println("Enter new Over 18 %: ");
+            arr[rowIndex][5] = sc.nextLine();
+            break;
+        case 6:
+            System.out.println("Enter new Incarcerated %: ");
+            arr[rowIndex][6] = sc.nextLine();
+            break;
+        case 7:
+            System.out.println("Enter new Firepower: ");
+            arr[rowIndex][7] = sc.nextLine();
+            break;
+        case 8:
+            System.out.println("Enter new Corp Tax: ");
+            arr[rowIndex][8] = sc.nextLine();
+            break;
+        default:
+            System.out.println("Invalid option.");
+    }
+    System.out.println("Update complete.");
+    return arr;
+}
 
     public void displayCountryStats(String[][] arr) {
         Scanner sc = new Scanner(System.in);
