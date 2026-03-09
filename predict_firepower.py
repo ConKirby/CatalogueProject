@@ -1,18 +1,18 @@
-import pandas as pd
-import joblib
+import pandas as pd                                                               
+import joblib    
+                                                                 
+def use_rfr(Country,GDPPerCapita,Population,MalesPer100Females,perc18AndOver,Incar  ceratedPer100k,CorporationTax):                                                   
+    X1 = [Country,GDPPerCapita,Population,MalesPer100Females,perc18AndOver,IncarceratedPer100k,CorporationTax]
+    rfr = joblib.load(r'models\rfr.joblib')
 
-rfr = joblib.load(r'models\rfr.joblib')
+    #rfr_predictions1 = rfr.predict(X1)
+    rfr_prediction = rfr.predict(X1)
 
-'''Predictions'''
-#NOTE No need to train the models or split the data into train and test
+    return rfr_prediction
 
-#rfr_predictions1 = rfr.predict(X1)
-rfr_predictions2 = rfr.predict(X2)
+import sys
 
-from sklearn.metrics import mean_absolute_percentage_error, r2_score
-
-model_mape = mean_absolute_percentage_error(y2, rfr_predictions2)
-print(f'mean_absolute_percentage_error: {model_mape}')
-
-model_r2 = r2_score(y2, rfr_predictions2)
-print(f'R squared: {model_r2}')
+if __name__ == "__main__":
+    args = [float(a) for a in sys.argv[1:]]
+    result = use_rfr(*args)
+    print(result[0])
