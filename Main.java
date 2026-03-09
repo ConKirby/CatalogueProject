@@ -84,12 +84,7 @@ public class Main{
         String name = sc.nextLine();
         String[][] newArr = new String[arr.length - 1][arr[0].length];
         int index = -1;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i][0].equals(name)) {
-                index = i;
-                break;
-            }
-        }
+        index = binarySearch(arr, name);
         if (index == -1) {
             System.out.println("Country not found.");
             return arr;
@@ -107,18 +102,38 @@ public class Main{
         sc.close();
         return newArr;
     }
+
+    public static void printSpecificData(String[][] arr) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the name of the country to print: ");
+        String name = sc.nextLine();
+        System.out.println("What feature do you want to print: " +
+                "\n0. Name" +
+                "\n1. GDP " +
+                "\n2. Population " +
+                "\n3. Gender ratio" +
+                "\n4. Under 18" +
+                "\n5. Over 18" +
+                "\n6. Incarcerated" +
+                "\n7. Firepower" +
+                "\n8. Corporation Tax");
+        int choice = sc.nextInt();
+        int index = -1;
+        index = binarySearch(arr, name);
+        if (index == -1) {
+            System.out.println("Country not found.");
+            return;
+        }
+        System.out.println(arr[index][choice]);
+
+    }
     public static String[][] editCountry(String[][] arr) {
     Scanner sc = new Scanner(System.in);
     System.out.println("Enter the name of the country to edit: ");
     String countryName = sc.nextLine();
 
     int rowIndex = -1;
-    for (int i = 0; i < arr.length; i++) {
-        if (arr[i][0].equalsIgnoreCase(countryName)) {
-            rowIndex = i;
-            break;
-        }
-    }
+    rowIndex = binarySearch(arr, countryName);
 
     if (rowIndex == -1) {
         System.out.println("Country not found.");
@@ -189,12 +204,7 @@ public class Main{
         System.out.println("Enter the name of the country to display: ");
         String name = sc.nextLine();
         int index = -1;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i][0].equals(name)) {
-                index = i;
-                break;
-            }
-        }
+        index = binarySearch(arr, name);
         if (index == -1) {
             System.out.println("Country not found.");
             return;
@@ -220,5 +230,24 @@ public class Main{
             }
             System.out.println();
         }
+    }
+
+    public static int binarySearch(String[][] arr, String target) {
+        int left = 0;
+        int right = arr.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (arr[mid][0].equalsIgnoreCase(target)) {
+                return mid; // Target found
+            } else if (arr[mid][0].compareToIgnoreCase(target) < 0) {
+                left = mid + 1; // Search in the right half
+            } else {
+                right = mid - 1; // Search in the left half
+            }
+        }
+
+        return -1; // Target not found
     }
 }
